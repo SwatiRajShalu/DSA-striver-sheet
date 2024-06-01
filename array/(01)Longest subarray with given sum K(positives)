@@ -1,0 +1,16 @@
+    int lenOfLongSubarr(int a[],  int n, int target) 
+    { 
+        int i=0,j=0,sum=0,max_len_ans=0;
+        while(j<n){
+           sum+=a[j];
+           while(sum>target){
+               sum-=a[i];
+               i++;
+           }
+           if(sum==target){
+               max_len_ans=max(max_len_ans,j-i+1);
+           }
+           j++;
+        }
+        return max_len_ans;
+    } 
