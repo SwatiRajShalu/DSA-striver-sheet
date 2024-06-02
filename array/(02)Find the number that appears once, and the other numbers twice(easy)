@@ -7,7 +7,7 @@ public:
         } 
         return XOR;     
     }
-};//  tc=0(nums.size()) , sc=0(1)
+}; //  tc=0(nums.size()) , sc=0(1)
 
 // here another approach is by using map 
 //we can also use 2 loops and check one by one
