@@ -1,4 +1,5 @@
 // agar open hoga to count++ and close hoga to count-- karo agar last me 0 ho jaa rha hai iska matlb hai hi jisse start kiya tha ussi se end ho gya hai
+
 class Solution {
 public:
     string removeOuterParentheses(string s) {
