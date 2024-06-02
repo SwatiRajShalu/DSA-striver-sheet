@@ -1,0 +1,64 @@
+//-------------------------------------------------------------------------------tc=0(3n)---------sc=0(2n)----------------------------
+class Solution {
+public:
+    string reverseWords(string s) {
+        vector<string> ans_str;
+        string word;
+        
+        // Split the string into words
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] != ' ') {
+                word.push_back(s[i]);
+            } else {
+                if (!word.empty()) {
+                    ans_str.push_back(word);
+                    word.clear();
+                }
+            }
+        }
+        
+        // Push the last word if it exists
+        if (!word.empty()) {
+            ans_str.push_back(word);
+        }
+        
+        // Reverse the vector of words
+        reverse(ans_str.begin(), ans_str.end()); //tc=0(n) //sc=0(1)
+        
+        // Join the words back into a single string
+        string result;
+        for (int i = 0; i < ans_str.size(); i++) {
+            result += ans_str[i];
+            if (i < ans_str.size() - 1) {
+                result += " ";
+            }
+        }
+        
+        return result;
+    }
+};
+
+//---------------------------------------------------------------------solution 2 ---------------------not working-------------------------
+class Solution {
+public:
+    string reverseWords(string s) {
+        
+        string word="";
+        string ans="";
+
+        for(int i=0;i<s.size();i++){
+            if(s[i]!=' '){
+                word.push_back(s[i]);
+            }else if(s[i]==' '){
+                if(ans!="") ans= word+" "+ans;
+                else  ans=word;                    
+                word="";                
+            }            
+        }
+        if(word!=""){
+            if(ans!="") ans= word+" "+ans;
+            else  ans=word;
+        }
+        return ans;
+    }
+};
