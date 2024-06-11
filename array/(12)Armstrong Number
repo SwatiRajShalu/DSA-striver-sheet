@@ -1,0 +1,16 @@
+--------------------------------------------tc=0(log(n)+1)------------------------log(n) meaning no of words in N -1;
+class Solution {
+  public:
+    string armstrongNumber(int N){
+        
+        int sum=0;
+        int n=N;
+        while(n){
+            sum+= pow((n%10),3);
+            n/=10;
+        }
+        if(sum==N)
+        return "Yes";
+        return "No";
+    }
+};
