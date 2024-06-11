@@ -1,0 +1,36 @@
+---------------------------------------Euclidean Algorithm -----------------------------------------
+class Solution {
+  public:
+    
+    long long gcd_f(long long a, long long b){ //--------------------------------euclidean algo--------tc=min(a,b);
+        if(a==0) return b;
+        gcd_f(b%a,a);
+    }
+    
+    vector<long long> lcmAndGcd(long long a , long long b) {
+        
+        long long gcd_var=gcd_f(a,b);
+        long long lcm=(a*b)/gcd_var; //------------------------------formula to calculate lcm 
+        return {lcm,gcd_var};
+    }
+};
+
+-----------------------------------------------SOLUTION 2----------giving TLE------------------------------------
+class Solution {
+  public:
+    
+    long long gcd_f(long long a, long long b){
+        long long value;
+        for(int i=1;i<=min(a,b);i++){
+             if(a%i==0 && b%i==0) value=i;
+        }
+        return value;
+    }
+    
+    vector<long long> lcmAndGcd(long long a , long long b) {
+        
+        long long gcd_var=gcd_f(a,b);
+        long long lcm=(a*b)/gcd_var;
+        return {lcm,gcd_var};
+    }
+};
