@@ -1,0 +1,13 @@
+class Solution{
+public:
+    int evenlyDivides(int N){
+        int n=N;
+        int count=0;
+        while(n){
+            int last=n%10;
+            if(last!=0 && N%last==0) count++; //-----------------------in absense of this , it will give floating point exception-----
+            n/=10;
+        }
+        return count;
+    }
+};
