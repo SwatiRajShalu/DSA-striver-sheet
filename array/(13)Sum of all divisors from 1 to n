@@ -1,0 +1,19 @@
+//---------problem link: https://www.geeksforgeeks.org/problems/sum-of-all-divisors-from-1-to-n4738/1-----------------------
+
+class Solution
+{
+public:
+    long long sumOfDivisors(int N)
+    {
+        
+        long long sum=0;
+        for(long long i=1;i<N+1;i++){
+            
+            long long no_count=N/i; //---------contribution of each number------------ 
+            long long value= no_count*i; //-----------value of contributed number-----------
+            sum+= value;
+        }
+        
+        return sum;
+    }
+};
