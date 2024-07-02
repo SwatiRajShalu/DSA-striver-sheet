@@ -1,0 +1,29 @@
+//----link------https://practice.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
+
+class Solution {
+  public:
+    vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+        
+        vector<int> ans;
+        queue<int> q;
+        vector<int> vist(V,0);
+        q.push(0);
+        vist[0]=1;
+        
+        while(!q.empty()){
+            int ele=q.front();q.pop();
+            ans.push_back(ele);
+            for(auto it:adj[ele]){
+                if(vist[it]==0){
+                    q.push(it);
+                    vist[it]=1;
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
+
+//time complexity: 0(no of vertex + no of edges);
+//space complexity: 0(no of vertex)
