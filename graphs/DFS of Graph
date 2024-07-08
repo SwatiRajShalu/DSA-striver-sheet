@@ -1,0 +1,22 @@
+class Solution {
+  public:
+  
+    void dfs(int i , vector<int> &vist, vector<int> adj[],vector<int> &ans){
+        vist[i]=1;
+        ans.push_back(i);
+        for(auto it:adj[i]){
+            if(vist[it]!=1)
+            dfs(it,vist,adj,ans);
+        }
+    }
+    
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+       vector<int> vist(V,0);
+       vector<int> ans;
+       dfs(0,vist,adj,ans);
+       return ans;
+    }
+};
+
+time complexity: 0(V+2E); as degeree is 2E
+space complexity: 0(3n)=0(n)
