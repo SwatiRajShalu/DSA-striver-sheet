@@ -1,0 +1,38 @@
+//link--- https://leetcode.com/problems/number-of-provinces/#:~:text=A%20province%20is%20a%20group,the%20total%20number%20of%20provinces.
+
+class Solution {
+public:
+    void dfs(int i, vector <vector <int>> &adj,vector<int>& vist){
+        vist[i]=1;
+        for(auto it:adj[i]){
+            if(vist[it]==0)
+            dfs(it,adj,vist);
+        }
+    }
+
+    int findCircleNum(vector<vector<int>>& isc) {
+        vector <vector <int>> adj(isc.size());
+
+        for(int i=0;i<isc.size();i++){
+            for(int j=0;j<isc.size();j++){
+                if(isc[i][j]==1 && i!=j){
+                    adj[i].push_back(j);
+                }
+            }
+        }
+        
+        int count=0;
+        vector<int> vist(isc.size(),0);
+        for(int i=0;i<isc.size();i++){
+           if(vist[i]==0){
+            dfs(i,adj,vist);
+            count++;
+           }           
+        }
+
+        return count;
+    }
+};
+
+time complexity: 0(n) + 0(v+2e)
+space complexity: 0(n)
