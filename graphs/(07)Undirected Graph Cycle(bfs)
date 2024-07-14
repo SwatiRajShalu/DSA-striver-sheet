@@ -1,0 +1,35 @@
+//link: 
+https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=detect-cycle-in-an-undirected-graph
+
+class Solution {
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+        
+        queue<pair<int,int>> q;
+        q.push({0,0});
+        int visited[V]={0};
+        
+        for(int i=0;i<V;i++){
+            if(visited[i]==0){
+                visited[i]=1;
+                q.push({i,i});
+                while(!q.empty()){
+                    int vertex=q.front().first;
+                    int parent=q.front().second;
+                    q.pop();
+                    
+                    for(auto it: adj[vertex]){
+                        if(visited[it]==0){
+                            visited[it]=1;
+                            q.push({it,vertex});
+                        }else if(it!=parent){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+};
