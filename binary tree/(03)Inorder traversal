@@ -1,0 +1,23 @@
+//link:https://leetcode.com/problems/binary-tree-inorder-traversal/
+
+class Solution {
+public:
+    
+    TreeNode* inorder_func(TreeNode*root, vector<int>&ans){
+        //base condition
+        if(root==NULL) return NULL;
+        //recurrsive call
+        inorder_func(root->left,ans);//-------------function call1
+        ans.push_back(root->val);
+        inorder_func(root->right,ans);//------------function call2
+        return root;
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        inorder_func(root,ans);
+        return ans;        
+    }
+};
+
+time complexity: 0(n) n is the no of nodes
+space complexity: 0(n) n stack space is used in recurrsive function
