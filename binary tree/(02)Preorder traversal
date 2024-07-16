@@ -1,0 +1,22 @@
+//link:
+https://leetcode.com/problems/binary-tree-preorder-traversal/description/
+
+class Solution {
+public:
+    TreeNode* func(TreeNode* root,vector<int> &ans){
+        if(root==NULL) return NULL; //THIS IS WRITTEN TO ENCOUNTER SUPPOSE if first node is only null thus no value can be put into vector
+        //recurrsive function
+        ans.push_back(root->val);
+        func(root->left,ans);
+        func(root->right,ans);
+        return root;        
+    }
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        func(root,ans);
+        return ans;
+    }
+};
+
+timecomplexity: 0(n) n is no. of node in tree
+space complexity: 0(n) is no of space required
