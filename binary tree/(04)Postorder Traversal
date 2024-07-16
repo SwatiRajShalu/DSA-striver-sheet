@@ -1,0 +1,22 @@
+//link: https://leetcode.com/problems/binary-tree-postorder-traversal/
+
+class Solution {
+public:
+    TreeNode* postorder_func(TreeNode*root,vector<int>&ans){
+        //base case
+        if(root==NULL) return NULL;
+        //recurrsive fun
+        postorder_func(root->left,ans);
+        postorder_func(root->right,ans);
+        ans.push_back(root->val); 
+        return root;               
+    }
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        postorder_func(root,ans);
+        return ans;  
+    }
+};
+
+//time complexity: 0(n) here n is the no of node, function traverse each and every node once
+//space complexity: 0(n) recurrsive stack is used to store the nodes
