@@ -1,0 +1,41 @@
+//link: https://leetcode.com/problems/01-matrix/description/
+
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        vector<vector<int>> ans_matrix(mat.size(),vector<int>(mat[0].size(),0));
+
+        queue<pair<pair<int,int>,int>> q;// to store the row,col and distance
+
+        for(int i=0;i<mat.size();i++){
+            for(int j=0;j<mat[0].size();j++){
+                if(mat[i][j]==0) q.push({{i,j},0});
+            }
+        }
+
+        while(!q.empty()){
+            int zr=q.front().first.first;
+            int zc=q.front().first.second;
+            int d=q.front().second;
+
+            q.pop();
+
+            int row[]={-1,0,1,0};
+            int col[]={0,1,0,-1};
+
+            for(int i=0;i<4;i++){
+                int nr=row[i]+zr;
+                int nc=col[i]+zc;
+
+                if(nr>=0 && nr<mat.size() && nc>=0 && nc<mat[0].size() && mat[nr][nc]!=0 && ans_matrix[nr][nc]==0){
+                    q.push({{nr,nc},d+1});
+                    ans_matrix[nr][nc]=d+1;
+                }
+            }
+        }
+        return ans_matrix;
+    }
+};
+
+//time complexity: 0(N*M*4)
+//space complexity: 0(N*M)+ 0(N*M) for storing in queue and another 2d array
