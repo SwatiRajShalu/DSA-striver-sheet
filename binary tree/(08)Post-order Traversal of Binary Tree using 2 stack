@@ -1,0 +1,28 @@
+//link:https://leetcode.com/problems/binary-tree-postorder-traversal/
+
+//algo:  push root in s1 , pop from s1 , push in s2 , push root->left , push root->right continues
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        stack<TreeNode*> s1;
+        stack<TreeNode*> s2;
+        vector<int> postorder_list;
+        if(root==NULL) return postorder_list;
+
+        s1.push(root);
+        while(!s1.empty()){
+            root= s1.top();
+            s1.pop();
+            s2.push(root);
+            if(root->left) s1.push(root->left);
+            if(root->right) s1.push(root->right);
+        }
+
+        while(!s2.empty()){
+            int val=s2.top()->val;
+            postorder_list.push_back(val);
+            s2.pop();
+        }
+        return postorder_list;
+    }
+};
