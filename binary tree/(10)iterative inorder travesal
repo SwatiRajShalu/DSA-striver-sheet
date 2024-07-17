@@ -1,0 +1,30 @@
+//link:https://leetcode.com/problems/binary-tree-inorder-traversal/
+
+//aglo: left hai to push, got null ->pop->go to right continue------------------------
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> inorder_list;
+
+        stack<TreeNode*> s;
+        TreeNode* node=root;
+
+        while(true){
+            if(node){
+                s.push(node);
+                node=node->left;
+            }else{
+                if(s.empty()==true) return inorder_list;
+                node=s.top();
+                s.pop();
+                inorder_list.push_back(node->val);
+                node=node->right;
+            }
+        } 
+        return inorder_list;
+    }
+};
+
+//time complexity: 0(n) all the nodes are traversed
+//space complexity: 0(n) in case of skewed tree
