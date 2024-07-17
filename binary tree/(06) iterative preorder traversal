@@ -1,0 +1,26 @@
+//link: https://leetcode.com/problems/binary-tree-preorder-traversal/submissions/1324015388/
+//algo: root push , root pop, right push , left push ,top pop, top right push , top left pop continues-----------------
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        
+        vector<int> preorder_list;
+        if(root==NULL) return preorder_list;
+
+        stack<TreeNode*> s;
+        s.push(root);
+        while(!s.empty()){
+            TreeNode* top=s.top();
+            s.pop();
+            preorder_list.push_back(top->val);
+            
+            if(top->right) s.push(top->right); //-----order will be reversed when poped out the elements--------------------
+            if(top->left) s.push(top->left);
+        }
+
+        return preorder_list;
+    }
+};
+
+//time complexity: 0(n) n is the no of nodes, the operations like pop(), push () into stack needs constant time operations
+//space complexity: 0(n) n is the no of nodes, stack is used , in case of skewed tree , n/2 space is used
