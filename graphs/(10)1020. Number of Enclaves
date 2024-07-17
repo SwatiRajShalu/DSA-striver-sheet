@@ -1,0 +1,53 @@
+//link:https://leetcode.com/problems/number-of-enclaves/
+
+class Solution {
+public:
+    
+    int row[4]={-1,0,1,0};
+    int col[4]={0,1,0,-1};
+    void dfs(int r,int c,vector<vector<int>>&grid, vector<vector<int>> &temp_grid,int &count){
+        count++; //count boundary ones and connected ones by bounday----------------------------------
+        temp_grid[r][c]=1;
+
+        for(int i=0;i<4;i++){
+            int nr=row[i]+r;
+            int nc=col[i]+c;
+            if(nr>=0 && nr<grid.size() && nc>=0 && nc<grid[0].size() && grid[nr][nc]==1 && temp_grid[nr][nc]==0){
+                dfs(nr,nc,grid,temp_grid,count);
+            }
+        }
+
+    }
+    
+    int numEnclaves(vector<vector<int>>& grid) {
+        vector<vector<int>> temp_grid(grid.size(),vector<int>(grid[0].size(),0));
+        int count=0;
+
+        //first col and last col
+        for(int i=0;i<grid.size();i++){
+            if(grid[i][0]==1 && temp_grid[i][0]==0){
+                dfs(i,0,grid,temp_grid,count);
+            }
+
+            if(grid[i][grid[0].size()-1]==1 && temp_grid[i][grid[0].size()-1]==0){
+                dfs(i,grid[0].size()-1,grid,temp_grid,count);
+            }
+        }
+
+        for(int j=0;j<grid[0].size();j++){
+            if(grid[0][j]==1 && temp_grid[0][j]==0){
+                dfs(0,j,grid,temp_grid,count);
+            }
+            if(grid[grid.size()-1][j]==1 && temp_grid[grid.size()-1][j]==0){
+                dfs(grid.size()-1,j,grid,temp_grid,count);
+            }
+        }
+        int total_one=0;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]==1) total_one++;
+            }
+        }
+      return total_one-count;
+    }
+};
