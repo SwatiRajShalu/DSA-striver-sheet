@@ -1,0 +1,20 @@
+//link: https://leetcode.com/problems/diameter-of-binary-tree/description/
+
+class Solution {
+public:
+    int func(TreeNode* root,int &max_both){
+        if(root==NULL) return 0;
+        int left=func(root->left,max_both);
+        int right=func(root->right,max_both);
+        max_both=max(max_both,left+right);
+        return max(left,right)+1;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        int max_both=0;
+        func(root,max_both);
+        return max_both;
+    }
+};
+
+//time complexity:0(n) n is the number of node , since traversing every node
+//space complexity:0(1) no stack space only recurrsive calls are used of 0(H)
