@@ -1,0 +1,13 @@
+//link:https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
+
+// algo : we will use preorder traversal of tree.
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL) return 0;
+        return max(maxDepth(root->left),maxDepth(root->right))+1;
+    }
+};
+
+//time complexity: 0(n) n is the no of nodes
+//space complexity: 0(n) n is the no of nodes(recurrsive stack space is used)
