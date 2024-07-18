@@ -1,0 +1,31 @@
+//link:https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+
+//POSTORDER
+
+class Solution {
+public:
+    int func(TreeNode* root,int &max_sum){
+        if(root==NULL) return 0;
+        int left=func(root->left,max_sum);
+        int right=func(root->right,max_sum);
+        max_sum=max(left+right+root->val,max_sum);
+        if(max(left,right)>0){
+            //if among both left and right one is negetive then one value gets eradicated-----------------------
+            max_sum=max(max(left,right)+root->val,max_sum);
+            //return will always contain one out of left or right value and the root------------------------------- 
+            return max(left,right)+root->val;
+        }else{
+            //if both is negetive than we have to remove both the part---------------------------------------
+            max_sum=max(root->val,max_sum);
+            return root->val;
+        }
+    }
+    int maxPathSum(TreeNode* root) {
+        int max_sum=INT_MIN;
+        func(root,max_sum);
+        return max_sum;
+    }
+};
+
+//time complexity: 0(N) N is no of node
+//space complexity: 0(1) because aucxillary stack space is used
