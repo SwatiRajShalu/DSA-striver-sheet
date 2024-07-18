@@ -1,0 +1,25 @@
+//link:https://leetcode.com/problems/balanced-binary-tree/description/
+
+class Solution {
+public:
+    int func(TreeNode* root){
+        //base condition
+        if(root==NULL) return 0;
+        //recurrsive code
+        int left=func(root->left);
+        if(left==-1) return -1;
+        int right=func(root->right);
+        if(right==-1) return -1;
+        if(abs(left-right)>1) return -1;
+        return max(left,right)+1;
+
+    }
+    bool isBalanced(TreeNode* root) {
+        if(func(root)==-1) return false;
+        return true;
+    }
+};
+
+
+//time complexity: 0(N) n is the no of nodes , we tend to visit each node exactly once in POSTORDER traversal
+//space complexity: 0(H) auxilary space of hight H is consumed
