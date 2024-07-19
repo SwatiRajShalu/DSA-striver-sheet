@@ -1,0 +1,19 @@
+//link:https://leetcode.com/problems/same-tree/
+
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(!p && !q) return true;
+        if(!p || !q) return false;
+
+        if(p->val!=q->val) return false;
+
+        bool left=isSameTree(p->left,q->left);
+        bool right=isSameTree(p->right,q->right);
+
+        return left&&right;        
+    }
+};
+
+//time complexity: 0(N) no of node in binary tree
+//space complexity: 0(1) no additional data structure is created
