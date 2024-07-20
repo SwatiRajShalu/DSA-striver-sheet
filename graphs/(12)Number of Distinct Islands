@@ -1,0 +1,47 @@
+//link:https://www.geeksforgeeks.org/problems/number-of-distinct-islands/0
+
+class Solution {
+    // dfs(i,j,vec,grid,temp_grid,i,j);
+    void dfs(int r,int c,vector<pair<int,int>> &vec,vector<vector<int>>& grid,vector<vector<int>>& temp_grid,int br,int bc){
+        temp_grid[r][c]=1;
+        vec.push_back({r-br,c-bc}); //------------------so that same pattern could be formed-----
+        
+        int row[4]={-1,0,1,0};
+        int col[4]={0,1,0,-1};
+        
+        for(int i=0;i<4;i++){
+            int nr=row[i]+r;
+            int nc=col[i]+c;
+            if(nr>=0&&nr<grid.size()&&nc>=0&&nc<grid[0].size()&&grid[nr][nc]==1&&temp_grid[nr][nc]==0){
+                dfs(nr,nc,vec,grid,temp_grid,br,bc);
+            }
+        }
+    }
+  public:
+  
+    int countDistinctIslands(vector<vector<int>>& grid) {
+        
+        int n=grid.size();
+        int m=grid[0].size();
+        
+        vector<vector<int>> temp_grid(n,vector<int>(m,0));
+        
+        //dfs traversal
+        
+        //define a set to store the different occurence of the pattern
+        set<vector<pair<int,int>>> st;
+        
+        //traverse the grid and temp_grid and find out the valid 1's
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1 && temp_grid[i][j]==0){
+                    vector<pair<int,int>> vec; // subpart of set
+                    dfs(i,j,vec,grid,temp_grid,i,j);
+                    st.insert(vec);
+                }
+            }
+        }
+        
+        return st.size();
+    }
+};
