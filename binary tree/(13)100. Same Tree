@@ -9,6 +9,7 @@ public:
         if(p->val!=q->val) return false;
 
         bool left=isSameTree(p->left,q->left);
+        if(left==false) return false; //this ensures of the left part is false ........recurrsion will not go to the right side------------
         bool right=isSameTree(p->right,q->right);
 
         return left&&right;        
