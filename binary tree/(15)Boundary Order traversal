@@ -1,0 +1,63 @@
+//link:https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+
+/* 
+ do the left node traversal first , thus time complexity becomes 0(H)
+ do the inorder traversal for finding the leaf node 0(N) no of nodes in binary tree
+ do the right node traversal at last , and then reverse the stored elements , put that into the final vector
+*/
+
+class Solution {
+    bool checkleaf(Node *root){
+        if(root->left==NULL &&  root->right==NULL) return true;
+        return false;
+    }
+public:
+    void addleft(Node* root, vector<int>&ans){
+        root=root->left;
+        while(root){
+            if(checkleaf(root)) return ; //if reached the leafnode means left traversal is finished------------
+            ans.push_back(root->data);
+            if(root->left) root=root->left;
+            else root=root->right;
+        }
+    }
+    
+    void addleaf(Node* root, vector<int>&ans){
+        if(root==NULL) return;
+        if(checkleaf(root)) ans.push_back(root->data);
+        addleaf(root->left,ans);
+        addleaf(root->right,ans);
+        return;
+    }
+    
+    void addright(Node* root, vector<int>& ans){
+        vector<int> sub_right;
+        root=root->right;
+        while(root){
+            if(checkleaf(root)) break; //if reached the leafnode than right traversal is finished----------------
+            sub_right.push_back(root->data);
+            if(root->right) root=root->right;
+            else root=root->left;
+        }
+        
+        for(int i=sub_right.size()-1;i>=0;i--)
+        ans.push_back(sub_right[i]);
+    }
+    vector <int> boundary(Node *root)
+    {
+        vector<int> ans;
+        if(root==NULL) return ans;
+        if(checkleaf(root)) return {root->data};
+        ans.push_back(root->data);
+        
+        addleft(root,ans);
+        addleaf(root,ans);
+        addright(root,ans);
+        
+        return ans;
+        
+    }
+};
+
+//time complexity: 0(H)+0(H)+0(N)
+//space complexity: 0(N)
