@@ -1,0 +1,40 @@
+//link:https://www.geeksforgeeks.org/problems/topological-sort/1
+//it is only applicable in directed Acyclic graph
+class Solution
+{
+    void dfs(int node,vector<int>&visit,vector<int>adj[],stack<int>&st){
+        visit[node]=1;
+        
+        for(auto it: adj[node]){
+            if(visit[it]==0)
+            dfs(it,visit,adj,st);
+        }
+        st.push(node); //-------------------jo jo directed hoga wo pehle stack me chala jayega-----
+    }
+	public:
+	//Function to return list containing vertices in Topological order. 
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	   stack<int> st; //to store the topological order--------------------
+	   
+	   vector<int> visit(V,0);
+	   
+	   for(int i=0;i<V;i++){
+	       if(visit[i]==0){
+	           dfs(i,visit,adj,st);
+	       }
+	   }
+	   
+	   vector<int> ans;
+	   while(!st.empty()){
+	       ans.push_back(st.top());
+	       st.pop();
+	   }
+	   
+	   return ans;
+	}
+};
+
+//time complexity: 0(V+E)+0(V) not 2E because this is a directed graph
+//space complexity: O(2N) + O(N) ~ O(2N): O(2N) for the visited array and the stack carried during DFS calls 
+                    O(N) for recursive stack space, where N = no. of nodes.
