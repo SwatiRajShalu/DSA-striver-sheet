@@ -1,0 +1,41 @@
+//link:
+/* algo         i will do toposort , if result comes equal to the size of the V then no cycle else yes there is a cycle beacuse in
+                cyclic graph only the kahn algo not work-------------------------------
+*/
+class Solution {
+  public:
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<int> adj[]) {
+    
+        queue<int> q;
+        vector<int> indegree(V,0);
+        
+        for(int i=0;i<V;i++){
+            for(int j=0;j<adj[i].size();j++){
+                indegree[adj[i][j]]++;
+            }
+        }
+        
+        for(int i=0;i<V;i++){
+            if(indegree[i]==0)
+            q.push(i);
+        }
+        
+        vector<int> ans;
+        while(!q.empty()){
+            int node=q.front(); q.pop();
+            ans.push_back(node);
+            
+            for(auto it:adj[node]){
+                indegree[it]--;
+                if(indegree[it]==0)
+                q.push(it);
+            }
+        }
+        if(ans.size()==V) return false;
+        return true;
+    }
+};
+
+//time complexity:(V+E)
+//space complexity: 0(2V)
