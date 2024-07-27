@@ -1,0 +1,28 @@
+//link: https://leetcode.com/problems/rotate-string/description/
+//add two same string and find the other string in that
+//--------------------------------------method 1
+return (s.size()==goal.size() && (goal+goal).contains(s));
+//time complexity: 0(m) size of goal+goal
+//space : 0(m)
+
+//----------------------------------------------------------method-2
+
+    bool rotateString(string s, string goal) {
+        string str=goal+goal;
+
+        for(int i=0;i<str.size()-s.size();i++){
+            int k=i;
+            int j=0;
+            int count=0;
+            while(j<s.size()){
+                if(str[k]!=s[j]) break;
+                count++;
+                j++;k++;
+            }
+            if(count==s.size()) return true;
+        }
+        return false;
+    }
+
+//time complexity: 0(n^2)
+//space complexity: 0(1)
