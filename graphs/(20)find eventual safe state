@@ -1,0 +1,42 @@
+//link:https://leetcode.com/problems/find-eventual-safe-states/
+
+/*algo: we will check if the node comes in the cycle path then it ill never be a safe node , 
+thus will apply the cycle detection algorithm (dfs)
+detected the path of cycle and marked if path visited then donot unmark the node*/
+class Solution {
+public:
+    bool dfs(int index, vector<int>&visit,vector<int>&path,vector<vector<int>>& graph){
+        visit[index]=1;
+        path[index]=1;
+        for(auto it:graph[index]){
+            if(visit[it]==0){
+                if(dfs(it,visit,path,graph)==false)
+                return false;
+            }else if(path[it]==1){
+                return false;
+            }
+        }
+        //if the node is in cycle then path vec remains 1 for it-------------------------------
+        path[index]=0;
+        return true;
+    }
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+       int n=graph.size();
+       vector<int> visit(n,0);
+       vector<int> path(n,0);
+
+       for(int i=0;i<n;i++){
+        if(visit[i]==0){
+            dfs(i,visit,path,graph);
+        }
+       } 
+       
+       vector<int> ans;
+       //we can return that node whose path value is 0 ---------------------------------------------------
+       for(int i=0;i<n;i++){
+        if(path[i]==0) ans.push_back(i);
+       }
+
+       return ans;
+    }
+};
