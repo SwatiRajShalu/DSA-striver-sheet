@@ -1,0 +1,20 @@
+//link:https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/description/
+
+class Solution {
+public:
+    int maxDepth(string s) {
+        int ans=0;
+        stack<char> st;
+        for(int i=0;i<s.size();i++){
+           if(s[i]=='('){
+                st.push('('); 
+                int l=st.size();
+                ans=max(ans,l);           
+           } 
+           else if(s[i]==')') st.pop();           
+        }
+        return ans;
+    }
+};
+//time complexity: 0(n) n is size of string
+//space complexity:0(n) but it keeps on emptying the stack
