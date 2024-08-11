@@ -1,0 +1,37 @@
+//link:https://leetcode.com/problems/string-to-integer-atoi/description/
+
+class Solution {
+public:
+    int myAtoi(string s) {
+        int i=0;
+        int sign=1;
+        int ans=0;
+
+        //handling the white spaces in the front-------------------------------------------------------
+        while(i<s.size() && s[i]==' '){
+            i++;
+        }
+
+        //i will handle the sign of the answer---------------------------------------------------------
+        if(i<s.size() && (s[i]=='+'||s[i]=='-')){
+            sign=(s[i]=='+')?1:-1;
+            i++;
+        }
+
+        while(i<s.size()&&isdigit(s[i])){
+            int n=s[i]-'0';
+            
+            //check for overflow condition--------------------------------------------------------------
+            if(ans> (INT_MAX-n)/10){
+                return (sign==1)?INT_MAX:INT_MIN;
+            }
+
+            ans=ans*10 + n;
+            i++;
+        }
+        return ans*sign;
+    }
+};
+
+//time complexity: 0(n) size of string
+//space complexity: 0(1) 
